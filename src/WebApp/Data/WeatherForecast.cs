@@ -1,4 +1,4 @@
-namespace WebApp.Data;
+namespace WebApp.Blazor.Data;
 
 public class WeatherForecast
 {
