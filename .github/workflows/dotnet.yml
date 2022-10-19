@@ -7,6 +7,7 @@ on:
 
 env: 
   DOCKER_IMAGE_NAME: gematt/k8s-webapp
+  DOCKER_FILE: src/WebAppClient/Dockerfile
 
 jobs:
   docker:
@@ -46,7 +47,7 @@ jobs:
       uses: docker/build-push-action@v3.0.0
       with:
         context: .
-        file: src/WebApp/Dockerfile
+        file: ${{ env.DOCKER_FILE }}
         push: true
         tags: ${{ steps.meta.outputs.tags }}
 #        tags: ${{ env.DOCKER_IMAGE_NAME }}:${{ steps.version.outputs.version-without-v }}
