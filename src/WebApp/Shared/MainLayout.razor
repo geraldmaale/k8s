@@ -1,0 +1,25 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>K8S Web App</PageTitle>
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu/>
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <h4 class="text-start">Working from <span style="color: #0b5ed7">@ComputerName</span></h4>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+@code
+{
+    // Get computer name
+    private string ComputerName { get; set; } = Environment.MachineName;
+}
