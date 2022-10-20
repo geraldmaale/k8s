@@ -14,9 +14,22 @@ public class WeatherForecastService
     public async Task<WeatherForecast[]> GetForecastAsync()
     {
         var url = _configuration.GetValue<string>("ApiUrl");
-        var httpClient = new HttpClient() { BaseAddress = new Uri(url) };
+        try
+        {
+            var httpClient = new HttpClient() { BaseAddress = new Uri(url) };
 
-        var response = await httpClient.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
-        return response;
+            var response = await httpClient.GetAsync("WeatherForecast");
+            if (response.IsSuccessStatusCode)
+            {
+                var results = await response.Content.ReadFromJsonAsync<WeatherForecast[]>();
+                return results!;
+            }
+        
+            return  Array.Empty<WeatherForecast>();
+        }
+        catch (Exception e)
+        {
+            return  Array.Empty<WeatherForecast>();
+        }
     }
 }
