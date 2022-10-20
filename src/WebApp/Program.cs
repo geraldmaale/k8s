@@ -20,6 +20,8 @@ builder.Services.AddSignalR().AddAzureSignalR(options =>
 {
     options.ServerStickyMode = 
         Microsoft.Azure.SignalR.ServerStickyMode.Required;
+    options.ConnectionString = 
+        builder.Configuration["AzureSignalRConnectionString"];
 });
 
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
