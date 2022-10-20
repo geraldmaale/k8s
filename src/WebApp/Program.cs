@@ -6,8 +6,9 @@ using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
-builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
+//var vaultUri = builder.Configuration["KeyVaultUri"];
+//var keyVaultEndpoint = new Uri(vaultUri);
+// builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -15,7 +16,12 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 
 // SignalR
-// builder.Services.AddSignalR();
+builder.Services.AddSignalR().AddAzureSignalR(options =>
+{
+    options.ServerStickyMode = 
+        Microsoft.Azure.SignalR.ServerStickyMode.Required;
+});
+
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.ForwardedHeaders =

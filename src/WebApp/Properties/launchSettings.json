@@ -5,7 +5,6 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "VaultUri": "https://k8skvault.vault.azure.net/",
         "AZURE_USERNAME": "",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.Azure.SignalR"
       },
@@ -17,7 +16,6 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "VaultUri": "https://k8skvault.vault.azure.net/",
         "AZURE_USERNAME": "",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.Azure.SignalR"
       }
@@ -29,7 +27,6 @@
       "publishAllPorts": true,
       "useSSL": true,
       "environmentVariables": {
-        "VaultUri": "https://k8skvault.vault.azure.net/",
         "AZURE_USERNAME": "",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.Azure.SignalR"
       }

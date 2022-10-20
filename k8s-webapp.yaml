@@ -25,14 +25,16 @@ spec:
     spec:
       containers:
       - name: k8s-webapp
-        image: gematt/k8s-webapp:0.1.2
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "250m"
+        image: gematt/k8s-webapp:0.1.3
+#        resources:
+#          limits:
+#            memory: "128Mi"
+#            cpu: "250m"
         ports:
         - containerPort: 80        
         env:
         - name: ApiUrl
           value: "http://k8s-webapi"
+        - name: VaultUri
+          value: "https://k8skvault.vault.azure.net/"
   replicas: 2
