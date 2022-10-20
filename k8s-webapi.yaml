@@ -23,11 +23,11 @@ spec:
     spec:
       containers:
       - name: k8s-webapi
-        image: gematt/k8s-webapi:0.1.0
+        image: gematt/k8s-webapi:0.1.1
         resources:
           limits:
             memory: "128Mi"
             cpu: "250m"
         ports:
         - containerPort: 80
-  replicas: 1
+  replicas: 2
