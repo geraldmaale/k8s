@@ -2,11 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: k8s-webapp
+  namespace: development
 spec:
   selector:
     app: k8s-webapp
   ports:
-  - port: 6000
+  - port: 5000    
     targetPort: 80
   type: LoadBalancer
 ---
@@ -14,6 +15,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: k8s-webapp
+  namespace: development
 spec:
   selector:
     matchLabels:
@@ -25,7 +27,7 @@ spec:
     spec:
       containers:
       - name: k8s-webapp
-        image: gematt/k8s-webapp:0.1.4
+        image: gematt/k8s-webapp:0.0.2
         resources:
           limits:
             memory: "128Mi"
@@ -37,6 +39,42 @@ spec:
           value: "http://k8s-webapi"
         - name: VaultUri
           value: "https://k8skvault.vault.azure.net/"
-        - name: Azure_SignalR_ConnectionString
-          value: "Endpoint=https://k8ssignalr.service.signalr.net;AccessKey=2Hctyne7a3+aMX/G4CbXROHM3ct3656cPorDmzTG1Ok=;Version=1.0;"
-  replicas: 1
+        - name: AzureSignalRConnectionString
+          value: ""
+  replicas: 2
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webapp-ingress
+  namespace: development
+  labels:
+    name: webapp-ingress
+spec:
+  # tls:
+  # - hosts:
+  #   - webapp.localdev.me
+  #   secretName: k8s-webapp-tls
+  rules:
+  - host: webapp.localdev.me
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: k8s-webapp
+            port: 
+              number: 80
+  - host: webapp2.localdev.me
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: k8s-webapp
+            port: 
+              number: 80

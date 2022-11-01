@@ -1,0 +1,44 @@
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: k8s-webapp-tls
+#   namespace: default
+# type: kubernetes.io/tls
+# data:
+#   tls.crt: base64 encoded cert
+#   tls.key: base64 encoded key
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webapp-ingress
+  namespace: default
+  labels:
+    name: webapp-ingress
+spec:
+  # tls:
+  # - hosts:
+  #   - webapp.localdev.me
+  #   secretName: k8s-webapp-tls
+  rules:
+  - host: webapp.localdev.me
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: k8s-webapp
+            port: 
+              number: 80
+  - host: webapp2.localdev.me
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: k8s-webapp
+            port: 
+              number: 80
