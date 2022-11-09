@@ -40,7 +40,7 @@ spec:
         - name: VaultUri
           value: "https://k8skvault.vault.azure.net/"
         - name: AzureSignalRConnectionString
-          value: "Endpoint=https://k8ssignalr.service.signalr.net;***"
+          value: "Endpoint=https://k8ssignalr.service.signalr.net; ***"
   replicas: 2
 
 ---
